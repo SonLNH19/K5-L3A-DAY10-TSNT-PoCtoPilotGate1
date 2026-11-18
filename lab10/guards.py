@@ -34,9 +34,30 @@ from .tools import Verdict
 
 
 def pre_guard(ctx):
-    return Verdict.allow()
+    policy = H.effective_policy(ctx.tools.lookup_policies(), ctx.as_of)
+    if policy is None:
+        return Verdict.escalate("Không xác định được chính sách có hiệu lực")
+    return Verdict.allow(policy_id=policy["policy_id"])
 
 
 def write_gate(ctx, action):
     # action = {"tool": "issue_refund", "ticket_id":..., "order_id":..., "amount_vnd":..., "payer":..., ...}
+    tool = action.get("tool")
+    if tool in ("issue_refund", "file_carrier_fault"):
+        if any(event.get("type") == "model_override" and event.get("field") == "delay_days"
+               and event.get("db") != event.get("ticket") for event in ctx.events):
+            return Verdict.escalate("Ngày trễ trong ticket khác tracking; cần người xác minh")
+
+    if tool == "file_carrier_fault":
+        order = ctx.tools.lookup_order(action.get("order_id"))
+        policy = H.effective_policy(ctx.tools.lookup_policies(), ctx.as_of)
+        parcel = next((p for p in (order or {}).get("parcels", [])
+                       if p.get("parcel_id") == action.get("parcel_id")), None)
+        if not parcel or not policy or not parcel.get("promised_date"):
+            return Verdict.escalate("Thiếu thông tin kiện hoặc chính sách để ghi lỗi hãng")
+        delay = H.db_delay_days(parcel, ctx.as_of)
+        if (action.get("carrier_id") != parcel.get("carrier_id")
+                or action.get("delay_days") != delay
+                or not H.carrier_at_fault(policy, parcel, delay)):
+            return Verdict.escalate("Lỗi hãng không khớp tracking và chính sách")
     return Verdict.allow()
