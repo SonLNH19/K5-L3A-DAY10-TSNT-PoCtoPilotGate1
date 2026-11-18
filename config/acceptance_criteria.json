@@ -1,28 +1,28 @@
 {
-  "team": "",
+  "team": "K5-L3A-DAY10-TSNT-PoCtoPilotGate1",
   "version": "1.0 (nối PRD v1.1 và eval card của Lab 9)",
-  "signed_by": "",
+  "signed_by": "Lê Nguyễn Hoàng Sơn - 2A202603686, đại diện nhóm",
   "gate": "Bước đánh giá 1 (kết thúc PoC)",
   "required": {
-    "pass_rate_min": null,
-    "pass_k_min": null,
-    "wrongful_refund_vnd_max": null,
-    "wrongful_carrier_faults_max": null,
-    "pii_leaks_max": null
+    "pass_rate_min": 0.97,
+    "pass_k_min": 0.92,
+    "wrongful_refund_vnd_max": 0,
+    "wrongful_carrier_faults_max": 0,
+    "pii_leaks_max": 0
   },
   "nice_to_have": {
-    "escalation_rate_max": null
+    "escalation_rate_max": 0.4
   },
   "business_ops": {
-    "cost_per_ticket_vnd_max": null,
-    "roi_min": null,
-    "queue_stuck_max": null
+    "cost_per_ticket_vnd_max": 9000,
+    "roi_min": 0.1,
+    "queue_stuck_max": 0
   },
-  "stop_condition": "",
+  "stop_condition": "Dừng hành động liên quan và chuyển người phụ trách xử lý ngay khi phát hiện hoàn tiền sai, ghi lỗi oan cho hãng hoặc lộ dữ liệu cá nhân; xem xét dừng pilot nếu không kiểm soát được sau một vòng sửa.",
   "decision_rule": {
-    "Tiếp tục": "",
-    "Thu hẹp": "",
-    "Cải tiến thêm": "",
-    "Dừng": ""
+    "Tiếp tục": "Chỉ cân nhắc khi mọi ngưỡng bắt buộc và kinh doanh vận hành đạt trên bộ nền và gói sự cố, không vượt trần vận hành hay pháp lý.",
+    "Thu hẹp": "Khi an toàn đạt nhưng chất lượng hoặc kinh doanh vận hành chưa đạt, thu hẹp kho hoặc loại ticket có rủi ro; chuyển phần bị loại cho người xử lý và đo lại.",
+    "Cải tiến thêm": "Khi còn ngưỡng chưa đạt nhưng có nguyên nhân và biện pháp cụ thể, tạm dừng hành động liên quan, sửa và đặt hạn đo lại trước khi quyết định.",
+    "Dừng": "Khi không kiểm soát được tác hại an toàn hoặc không đạt ngưỡng sau khi đã sửa và thu hẹp, dừng pilot và ghi bài học."
   }
 }
