@@ -2,5 +2,13 @@
 __pycache__/
 *.pyc
 .DS_Store
+.venv/
+.venv-*/
+venv/
+env/
+.env
+.env.*
+!.env.example
 # Kết quả mỗi lần chạy. Lệnh 7 (check_submission --collect) chép những gì cần nộp vào submission/.
 /runs/
+

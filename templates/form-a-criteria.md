@@ -1,6 +1,6 @@
 # Phiếu A · Tiêu chí và cách đo · Khối 1 (phút 15–65)
 
-**Bàn:** TSN · **Người cầm bút chính:** Lê Nguyễn Hoàng Sơn, đại diện nhóm (Sản phẩm và kinh doanh; Vận hành và pháp lý)
+**Bàn:** TSNT · **Người cầm bút chính:** Lê Nguyễn Hoàng Sơn, đại diện nhóm (Sản phẩm và kinh doanh; Vận hành và pháp lý)
 
 Điền phiếu này **trước khi chạy trợ lý lần nào**. Viết xong thì chép ngưỡng sang `config/acceptance_criteria.json`, ký ở phút 60–65,
 rồi mới chạy đánh giá. Khối 1 không sửa code.

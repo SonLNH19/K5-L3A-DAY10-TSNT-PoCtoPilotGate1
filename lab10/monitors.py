@@ -19,7 +19,18 @@ def escalation_rate(trials):
     return sum(t["status"] == "escalated" for t in trials) / max(1, len(trials))
 
 
+def policy_fallback_rate(trials):
+    """Fraction of trials that entered policy-check fallback, without labels."""
+    if not trials:
+        return 0.0
+    return sum(any(event.get("type") == "llm_fallback"
+                   and event.get("purpose") == "policy_check"
+                   for event in trial.get("events", []))
+               for trial in trials) / len(trials)
+
+
 MONITORS = {
     "escalation_rate": escalation_rate,     # có sẵn; KHÔNG tính là metric mới của đội
+    "policy_fallback_rate": policy_fallback_rate,
 }
 STARTER_MONITORS = ("escalation_rate",)

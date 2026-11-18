@@ -370,6 +370,17 @@ Lượng ticket có thể dồn gấp ba trong một giờ (ngày sale, sau bão
 | Ngưỡng nào thì **thu hẹp** phạm vi (khoá `business.pilot_scope`) hoặc **tắt** một thao tác ghi (`config/switches.json`)? Ai quyết? | Tùng thu hẹp khi chờ vượt 60 phút hoặc có ca ùn; tắt thao tác liên quan ngay khi xác nhận thiệt hại an toàn. |
 | Thêm người thì chi phí mỗi ticket và ROI thay đổi thế nào (đọc report)? | Chưa đo kịch bản thêm người; `ops_facts` cho biết mỗi người trực thêm có phí giữ chỗ 30.000đ/ca, nên chi phí và ROI cần chạy lại report để xác định, không tự suy ra con số. |
 
+**Cập nhật sau sự cố S4 — bổ sung vòng 2 theo yêu cầu thẻ; bảng vòng 1 phía trên giữ nguyên.**
+
+| Nội dung | Cập nhật S4 và bằng chứng |
+|---|---|
+| Tải và rủi ro giờ cao điểm | Thẻ mô tả lượng việc gấp ba, dồn gần hết vào một giờ. Report prepared có 10 ca ùn và chờ tối đa 128 phút; đây là bằng chứng dồn tải, không dùng trung bình cả ca để kết luận công suất đủ. |
+| Người trực và công suất | Kế hoạch mô phỏng 2 người, tổng 12 ca/giờ, khớp config vòng 2. Hạnh NV-HANH vẫn là approver, Tùng NV-TUNG gọi hỗ trợ; người duyệt thứ hai cần được bố trí và xác nhận thẩm quyền trước pilot thật. |
+| Khi nào gọi thêm người | Giữ kế hoạch cảnh báo: từ 4 ca chờ hoặc chờ tối đa 45 phút thì Tùng kiểm công suất và gọi hỗ trợ; chưa khẳng định các cảnh báo đã được tự động triển khai. |
+| Khi nào thu hẹp hoặc tắt | Tùng thu hẹp khi có ca ùn hoặc chờ vượt 60 phút; dừng thao tác liên quan khi xác nhận thiệt hại. Trần hoàn tự động cho S4 là 300.000đ/ngày; phần vượt trần chuyển người trước ghi. |
+| Đo riêng tác động thêm người | Sau khi giữ cùng cổng và trần 300.000đ: `R-S4-after-20261118-164905-3f1481` (1 người) → `R-S4-after-20261118-165016-44ef7f` (2 người): ca ùn 7 → 0, chờ tối đa 102 → 23 phút, chi phí 6.815 → 7.547đ/ticket, ROI 0,47 → 0,33. |
+| Kết quả cuối và giới hạn | Grade `R-S4-grade-20261118-172326-7ee168`: không vượt trần, độ phủ 1,0, PASS-VISIBLE; chuyển duyệt 55,12% vẫn cao hơn mục tiêu nên có 40%, cần xác minh năng suất thực tế. |
+
 ---
 
 <a id="b8"></a>

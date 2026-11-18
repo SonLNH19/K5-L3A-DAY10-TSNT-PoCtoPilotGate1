@@ -48,6 +48,31 @@ def write_gate(ctx, action):
                and event.get("db") != event.get("ticket") for event in ctx.events):
             return Verdict.escalate("Ngày trễ trong ticket khác tracking; cần người xác minh")
 
+    if tool == "issue_refund":
+        order = ctx.tools.lookup_order(action.get("order_id"))
+        policy = H.effective_policy(ctx.tools.lookup_policies(), ctx.as_of)
+        if not order or not order.get("parcels") or policy is None:
+            return Verdict.escalate("Thiếu dữ liệu để xác minh quyền lợi trước khi hoàn")
+        if (ctx.ticket.get("parcel_id") and not any(
+                p.get("parcel_id") == ctx.ticket["parcel_id"] for p in order["parcels"])):
+            return Verdict.escalate("Không tìm thấy kiện yêu cầu hoàn trong đơn")
+        try:
+            parcel = H.ticket_parcel(order, ctx.ticket, ctx.as_of)
+            if not parcel.get("delay_cause"):
+                return Verdict.escalate("Chưa có nguyên nhân trễ để xác minh quyền lợi")
+            delay = H.db_delay_days(parcel, ctx.as_of)
+            entitlement = H.entitlement_vnd(policy, order, delay, parcel["delay_cause"])
+            paid = sum(row["amount_vnd"] for row in
+                       ctx.tools.ledger_rows(order_id=order["order_id"]))
+            remaining = max(0, entitlement - paid)
+            amount = action.get("amount_vnd")
+            if not isinstance(amount, int) or isinstance(amount, bool) or amount <= 0:
+                return Verdict.escalate("Số tiền hoàn không hợp lệ")
+        except (KeyError, TypeError, ValueError):
+            return Verdict.escalate("Dữ liệu quyền lợi không đủ hoặc không hợp lệ")
+        if amount > remaining:
+            return Verdict.escalate("Khoản hoàn vượt quyền lợi còn lại theo tracking và chính sách")
+
     if tool == "file_carrier_fault":
         order = ctx.tools.lookup_order(action.get("order_id"))
         policy = H.effective_policy(ctx.tools.lookup_policies(), ctx.as_of)
@@ -59,5 +84,5 @@ def write_gate(ctx, action):
         if (action.get("carrier_id") != parcel.get("carrier_id")
                 or action.get("delay_days") != delay
                 or not H.carrier_at_fault(policy, parcel, delay)):
-            return Verdict.escalate("Lỗi hãng không khớp tracking và chính sách")
+            return Verdict.deny("Không ghi lỗi hãng khi không khớp tracking và chính sách")
     return Verdict.allow()

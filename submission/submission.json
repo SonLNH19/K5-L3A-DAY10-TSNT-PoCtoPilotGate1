@@ -6,12 +6,12 @@
     "VuThanhToan-2A202603654",
     "PhamVanNam-2A202603681"
   ],
-  "incident": "",
-  "decision_v1": "",
-  "decision_v2": "",
+  "incident": "S4",
+  "decision_v1": "Cải tiến thêm",
+  "decision_v2": "Cải tiến thêm",
   "three_lines": {
-    "environment_assumption": "",
-    "reduce_or_prevent": "",
-    "measure_in_pilot": ""
+    "environment_assumption": "Một giả định về môi trường mà thiết kế của đội đang dựa vào, có thể sai ngoài thực tế: hai người duyệt thực sự đạt tổng 12 ca/giờ trong giờ sale; mô phỏng chờ tối đa 23 phút nhưng ngoài thực tế có thể thấp năng suất hoặc vắng người.",
+    "reduce_or_prevent": "Gate của đội chỉ GIẢM khả năng hay thực sự NGĂN được tác hại? Vì sao: gate trước hoàn chặn khoản vượt quyền lợi tính từ tracking/policy và trần tự động 300.000đ; trên S4 hoàn sai bằng 0 và hoàn tự động 292.000đ/ngày, nhưng dữ liệu nguồn sai hoặc kênh ghi khác vẫn có thể gây hại, còn thêm người chỉ giảm nguy cơ ùn.",
+    "measure_in_pilot": "Vì data là mock, cần đo lại gì trong pilot thật trước Bước đánh giá 2: đo năng suất duyệt và chờ đuôi giờ cao điểm, tỷ lệ fallback của model thật, đối soát hoàn sai và chi phí toàn phần; so với mốc mô phỏng 7.547đ/ticket, ROI 0,33 và tỷ lệ chuyển 55,12%."
   }
 }
