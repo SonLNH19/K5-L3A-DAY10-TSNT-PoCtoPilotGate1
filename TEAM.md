@@ -52,8 +52,8 @@ Dùng AI hỗ trợ giải thích luồng xử lý, gợi ý cách kiểm tra qu
 
 ### Phần việc phụ trách
 
-Trưởng nhóm, sản phẩm và kinh doanh; Phiếu A, Phiếu B mục B8 và Phiếu C mục C12; rà soát tiêu chí, chi phí, ngân sách và hồ sơ nộp bài.
-
+Trưởng nhóm, phụ trách sản phẩm và kinh doanh; xây dựng tiêu chí chấp nhận ở Phiếu A, đối chiếu chi phí, ROI và ngân sách để tổng hợp quyết định v1 tại Phiếu B mục B8 và quyết định v2 tại Phiếu C mục C12.
+Quản lý repo chung, trực tiếp thực hiện các lệnh Git, tính toàn vẹn, gom bài và đẩy bản nộp cuối lên GitHub.
 ### Đóng góp cụ thể
 
 Tổng hợp tiêu chí chấp nhận và thực hiện các lệnh trên máy chung. Đối chiếu kết quả với ngưỡng đã ký, theo dõi chi phí và ROI, tổng hợp quyết định v1/v2 và kiểm tra thành phần bài nộp.
